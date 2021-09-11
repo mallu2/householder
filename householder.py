@@ -48,6 +48,9 @@ class Householder:
         R = np.copy(self.A)
 
         m,n = np.shape(self.A)
+        if m > n:
+            m = n
+            R = R[:n]
         
         # Create identity matrix I of same size as A
         I = np.identity(n)
@@ -107,6 +110,9 @@ class Householder:
         #create the initial triangular matrix as a copy of the m x n - matrix A
         
         m,n = np.shape(self.A)
+        if m > n:
+            m = n
+
         v_list = Householder.vector(self)
         H_list = []
         for i in list(range(n-1)):
