@@ -24,6 +24,7 @@ class Reflection:
         """
         Vector v shape(m,1), to initialize the Housholder transformation.
         """
+
         self.v = v 
         
     def __mul__(self, a):

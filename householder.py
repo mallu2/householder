@@ -2,9 +2,6 @@ import sys
 import os
 import numpy as np
 
-#sys.path.append('/Users/mallu899/Desktop/courses/python-course/project/python_course_project/householder_package')
-
-
 from reflection import Reflection
 
 class Householder:
@@ -105,9 +102,7 @@ class Householder:
         Returns
         -------
         Q: numpy matrix
-            The upper triangular matrix after QR decomposition using Householder transformation.
-        
-        """
+            The upper triangular matrix after QR decomposition using Householder transformation."""
         
         #create the initial triangular matrix as a copy of the m x n - matrix A
         
