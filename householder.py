@@ -2,7 +2,7 @@ import sys
 import os
 import numpy as np
 
-from reflection import Reflection
+from .reflection import Reflection
 
 class Householder:
     """Performs QR decomposition of a matrix A to QR using the Housholder transformation.
@@ -45,10 +45,10 @@ class Householder:
         list_v: list
             The vectors v for each step of the transformation."""
         
-        shape = np.shape(self.A)
+        shape = np.shape(self)
         m,n = shape
         
-        R = np.copy(self.A)
+        R = np.copy(self)
         
         #Dependent on the shape of the matrix you have to do the transformation on a 
         #different number r of columns
