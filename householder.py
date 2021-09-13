@@ -26,6 +26,7 @@ class Householder:
     """
     
     def __init__(self, A):
+        """Matrix A"""
         
         self.A = A
         
@@ -44,22 +45,34 @@ class Householder:
         list_v: list
             The vectors v for each step of the transformation."""
         
-        #create the initial triangular matrix as a copy of the m x n - matrix A
+        shape = np.shape(self.A)
+        m,n = shape
+        
         R = np.copy(self.A)
-
-        m,n = np.shape(self.A)
+        
+        #Dependent on the shape of the matrix you have to do the transformation on a 
+        #different number r of columns
         if m > n:
-            m = n
-            R = R[:n]
+            r = n
+        elif n > m:
+            r = m
+        else:
+            r = n - 1
         
         # Create identity matrix I of same size as A
-        I = np.identity(n)
+        I = np.zeros(m*r).reshape(m,r)
+        
+        I[:r] = np.identity(r)
+
         # Create list_v 
         list_v = []
+
         # write out vectors a and e of decreasing size from the columns of R and I 
-        for j in list(range(n-1)): 
-            a = [row[j] for row in R[j:]] # j'th row of A but only the n-j last rows.
+        
+        for j in list(range(r)): 
+            a = [row[j] for row in R[j:]] # j'th column of A but only the m-i last rows.
             e = [row[j] for row in I[j:]] # same for the identity matrix
+            
             a = np.array(a)
             e = np.array(e)
             sigma = np.linalg.norm(a) # this is the norm of the vector/column of A 
@@ -68,7 +81,8 @@ class Householder:
 
             H = Reflection(list_v[j]) # calculate the Housholder transformation for the vector v
             R = H * R # apply the transformation to the matrix A and obtain R stepwise
-            
+
+        
         return(R, list_v)
     
     def triangle(self):
@@ -98,41 +112,52 @@ class Householder:
     def obtain_Q(self):
         """Calculates the upper triangular matrix Q after QA decomposition.
         
-        Use the list of housholder vectors to get the Householdermatrix H for each step of
+        Use the list of housholder vectors to get the Householdermatrix H for 
+        each step of
         the QR transformation,fill in the identitymatrix to match the
         shape of A, take te transpose and multiply to obtain Q.'
         
         Returns
         -------
         Q: numpy matrix
-            The upper triangular matrix after QR decomposition using Householder transformation."""
+            The upper triangular matrix after QR decomposition using Householder 
+            transformation.
+        """
         
         #create the initial triangular matrix as a copy of the m x n - matrix A
-        
-        m,n = np.shape(self.A)
-        if m > n:
-            m = n
-
+            
         v_list = Householder.vector(self)
+        n_n = len(v_list)
+        q_m = len(v_list[0])
+        
         H_list = []
-        for i in list(range(n-1)):
+        for i in list(range(n_n)):
+            
             gamma = ((np.linalg.norm(v_list[i]))**2)/2
             vvtrans = v_list[i] * np.transpose(v_list[i])
-            H =  np.identity((m-i)) - (vvtrans/gamma)
-            H = np.array([x for arr in H for x in arr])
-            H = H.reshape(m-i,n-i)
-            m_H, n_H = np.shape(H)
-            if m_H < m:
-                I = np.identity(n)
+            H =  np.identity((q_m-i)) - (vvtrans/gamma)
+            
+            print(H.shape)
+
+            m_H, n_H = H.shape
+            if m_H <  q_m:
+                I = np.identity(q_m)
                 x = y = i
                 I [ x:x+H.shape[0], y:y+H.shape[1]] = H
                 H = I
             H_list.append(H)
-            
+        
        # The transpose of Q is the result of the dot product H(n-1)...H1 
-    
-        for i in list(range(n-1)):
+        
+        len_H = len(H_list)
 
-            H_temp = np.matmul(H_list[i], H_list[i-1])
-            Q = np.transpose(H_temp)
+        H_temp = H_list[-1]
+        
+        for i in np.arange(len_H-1,0,-1):
+            
+            H_temp = np.matmul(H_temp, H_list[i-1])
+        
+        Q = np.transpose(H_temp)
+            
         return(Q)
+
