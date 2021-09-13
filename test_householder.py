@@ -9,7 +9,8 @@ import numpy as np
 
 # import the packages that should be tested
 
-from householder_package import Householder
+#from householder_package import Householder
+import Householder
 
 class matrices:
     """This is a class that contains a number of matrices that can be used to test programs that to matrix calculations.
