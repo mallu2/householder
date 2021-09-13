@@ -2,15 +2,15 @@
 # test_householder.py
 
 import sys, os
-
-sys.path.append('/Users/mallu899/Mirror/university/courses/python-course/project/python_course_project/householder_package/')
-
 import numpy as np
 
 # import the packages that should be tested
 
-#from householder_package import Householder
-import Householder
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+
+from package import Householder
 
 class matrices:
     """This is a class that contains a number of matrices that can be used to test programs that to matrix calculations.
