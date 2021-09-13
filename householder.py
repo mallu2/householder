@@ -17,12 +17,14 @@ class Householder:
         
     Methods
     -------
-    triangle_operation:
+    triangle_operation()
         Finds the householer matrix and uses it for the stepwise transformation of A into R and Q.
-    triangle
-        Returns the upper triangular matrix after Householder Transformation.
-    vector 
+    triangle()
+        Returns the upper triangular matrix R after Householder Transformation.
+    vector()
         Returns the vectors of the Housholder matrix.
+    obtain_Q()
+        Returns the orthonormal matrix Q after Householder Transformation.
     """
     
     def __init__(self, A):
@@ -110,12 +112,14 @@ class Householder:
         return(v_list)
     
     def obtain_Q(self):
-        """Calculates the upper triangular matrix Q after QA decomposition.
+        """Calculates the orthonormal matrix Q after Householder Transformation.
         
         Use the list of housholder vectors to get the Householdermatrix H for 
         each step of
-        the QR transformation,fill in the identitymatrix to match the
-        shape of A, take te transpose and multiply to obtain Q.'
+        the finding R, fill in the identitymatrix to match the
+        shape of an (m,m) matrix, take te transpose and multiply to obtain Q.
+        Q is a square matrix and the number of rows and columns is qual to the number of 
+        columns in R.
         
         Returns
         -------
@@ -127,11 +131,11 @@ class Householder:
         #create the initial triangular matrix as a copy of the m x n - matrix A
             
         v_list = Householder.vector(self)
-        n_n = len(v_list)
-        q_m = len(v_list[0])
+        n_v = len(v_list)       # number of vectors, not equal to number of columns in R
+        q_m = len(v_list[0])    # longest vector, should determine the shape of Q
         
         H_list = []
-        for i in list(range(n_n)):
+        for i in list(range(n_v)):
             
             gamma = ((np.linalg.norm(v_list[i]))**2)/2
             vvtrans = v_list[i] * np.transpose(v_list[i])
