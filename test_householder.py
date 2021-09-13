@@ -121,7 +121,7 @@ def QR_decomb_t(A):
     result = np.dot(Q, R)
     result = np.rint(result).astype(int)
     
-    print ("If all true you are good!",result == A)  
+    print ("If all fields are true you are good!",result == A)  
 
 
 def test():
