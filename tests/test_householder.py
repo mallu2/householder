@@ -12,34 +12,7 @@ sys.path.append(parentdir)
 
 from package import Householder
 
-class matrices:
-    """This is a class that contains a number of matrices that can be used to test programs that to matrix calculations.
-    
-    Attributes
-    ----------
-    mn_33: numpy matrix
-        3 x 3 matrix
-    mn_22: numpy matrix
-        2 x 2 matrix
-    mn_44: numpy matrix
-        4 x 4 matrix
-    mn_43: numpy matrix
-        4 x 3 matrix
-    mn_34: numpy matrix
-        3 x 4 matrix
 
-    Methods
-    -------
-    m_33: numpy matrix
-        returns 3 x 3 matrix
-    m_22: numpy matrix
-        returns 2 x 2 matrix
-    m_44: numpy matrix
-        returns 4 x 4 matrix
-    m_43: numpy matrix
-        returns 4 x 3 matrix
-    m_34: numpy matrix
-        returns 3 x 4 matrix"""
 
 class matrices:
     """This is a class that contains a number of matrices that can be used to test programs that to matrix calculations.
